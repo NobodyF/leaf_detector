@@ -10,12 +10,9 @@ A computer vision pipeline for detecting and counting **leaves** and **fruits** 
 project/
 ├── dataset.yaml          # Dataset config — paths, class names
 ├── train.py              # Full training from a base YOLO model
-├── train_adding.py       # Fine-tune an existing model with new images
-├── predict.py            # Run inference, draw boxes, save annotated images
-├── predict_and_save.py   # Run inference + save YOLO .txt label files for annotator
+├── predict.py            # Run inference, draw boxes, save annotated 
+├── predict_and_save.py   # Run inference + save YOLO .txt label files 
 ├── annotator.py          # Web-based annotation correction tool
-├── results/              # Output folder — annotated plant images
-└── yolo26n.pt / yolo26s.pt  # Base YOLO weights (starting point for training)
 ```
 
 ---
@@ -51,24 +48,6 @@ Use this when building the model for the first time or when the dataset has chan
 ```bash
 python train.py
 ```
-
----
-
-### `train_adding.py`
-**Fine-tuning** — continues training from an already-trained `best.pt` instead of starting from zero.
-
-- Loads your existing best model as the starting point
-- Trains for ~20–40 epochs with a lower learning rate (`1e-4`)
-- Freezes the first 10 backbone layers so core features aren't disrupted
-- Saves results to a separate folder (`leaves_fruits_ft`) — original run is untouched
-
-Use this when you have added new images to the dataset and want to update the model without retraining from scratch.
-
-```bash
-python train_adding.py
-```
-
-> ⚠️ Before running: drop new images into `train/images/` and their labels into `train/labels/`, then confirm the `PRETRAINED` path in the CONFIG block points to your current `best.pt`.
 
 ---
 
@@ -154,9 +133,7 @@ annotator.py          →   corrected .txt label files
       │
       ▼
 Add corrected images + labels to dataset  (train/ folder)
-      │
-      ▼
-train_adding.py       →   updated best.pt model
+
 ```
 
 ---
